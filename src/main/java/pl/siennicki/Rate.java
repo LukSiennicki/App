@@ -20,37 +20,27 @@ public class Rate {
     @SerializedName("ask")
     @Expose
     private double ask;
+    @SerializedName("mid")
+    @Expose
+    private double mid;
 
     public String getNo() {
         return no;
-    }
-
-    public void setNo(String no) {
-        this.no = no;
     }
 
     public LocalDate getEffectiveDate() {
         return effectiveDate;
     }
 
-    public void setEffectiveDate(LocalDate effectiveDate) {
-        this.effectiveDate = effectiveDate;
-    }
-
     public double getBid() {
         return bid;
-    }
-
-    public void setBid(double bid) {
-        this.bid = bid;
     }
 
     public double getAsk() {
         return ask;
     }
 
-    public void setAsk(double ask) {
-        this.ask = ask;
+    public double getMid() {
+        return mid;
     }
-
 }
