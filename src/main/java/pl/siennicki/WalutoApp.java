@@ -1,33 +1,37 @@
 package pl.siennicki;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.util.Scanner;
 
 public class WalutoApp {
     public static void main(String[] args) throws IOException {
+        Scanner scanner = new Scanner(System.in);
 
-        DataConverter dataConverter = new JsonDataConverter();
+        CurrencyApi currencyApi = new CurrencyApi();
+        System.out.println("Podaj walute transakcji opcje");
 
-        OkHttpClient client = new OkHttpClient();
+        for (Currency currency : Currency.values()) {
+            System.out.print(currency.name() + "; ");
+        }
+        System.out.println();
+        Currency currency = Currency.getCurrency(scanner.nextLine());
 
+        System.out.println("Ile chcesz waluty: ");
+        double ilosc = scanner.nextDouble();
 
-        Request eurRequest = new RequestBuilder().currency(Currency.EUR)
-                .date(LocalDate.now())
-                .dataFormat(DataFormat.JSON)
-                .build();
+        CurrencyInfo currencyInfo = currencyApi.getInfoForCurrency(currency);
+        System.out.println("sprzedaz >>> "
+                + currencyInfo.getName() + " : " + (ilosc * currencyInfo.getSell()) + " zl");
 
-        Response response = client.newCall(eurRequest).execute();
-        String jsonString = response.body().string();
+        System.out.println("kupno >>> "
+                + currencyInfo.getName() + " : " + (ilosc * currencyInfo.getBuy()) + " zl");
 
-        CurrencyInfo currencyInfo = dataConverter.convertData(jsonString);
-
-        System.out.println("response: sprzedaz 100 >>> " + currencyInfo.getName() + " : " + (100 * currencyInfo.getSell()));
-        System.out.println("response: kupno 100 >>> " + currencyInfo.getName() + " : " + (100 * currencyInfo.getBuy()));
-
+        System.out.println(Client.INSTANCE.hashCode());
+        System.out.println(Client.INSTANCE.hashCode());
+        System.out.println(Client.INSTANCE.hashCode());
+        System.out.println(Client.INSTANCE.hashCode());
 
     }
 }

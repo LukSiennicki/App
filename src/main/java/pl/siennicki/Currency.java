@@ -13,5 +13,14 @@ public enum Currency {
     DKK,
     NOK,
     SEK,
-    XDR
+    XDR;
+
+    public static Currency getCurrency(String currencyName){
+        for (Currency currency : Currency.values()){
+            if(currency.name().equalsIgnoreCase(currencyName)){
+                return currency;
+            }
+        }
+        return USD;
+    }
 }
