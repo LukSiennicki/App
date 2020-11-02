@@ -9,12 +9,13 @@ public class WalutoApp {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        CurrencyApi currencyApi = new CurrencyApi();
-        System.out.println("Podaj walute transakcji opcje");
+        CurrencyApi currencyApi = new CurrencyApi(Client.getINSTANCE(),new JsonDataConverter());
 
+        System.out.println("Podaj walute transakcji opcje");
         for (Currency currency : Currency.values()) {
             System.out.print(currency.name() + "; ");
         }
+
         System.out.println();
         Currency currency = Currency.getCurrency(scanner.nextLine());
 
@@ -27,11 +28,6 @@ public class WalutoApp {
 
         System.out.println("kupno >>> "
                 + currencyInfo.getName() + " : " + (ilosc * currencyInfo.getBuy()) + " zl");
-
-        System.out.println(Client.INSTANCE.hashCode());
-        System.out.println(Client.INSTANCE.hashCode());
-        System.out.println(Client.INSTANCE.hashCode());
-        System.out.println(Client.INSTANCE.hashCode());
 
     }
 }

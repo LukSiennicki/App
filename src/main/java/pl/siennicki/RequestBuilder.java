@@ -15,17 +15,23 @@ public class RequestBuilder {
     private DataFormat dataFormat = DataFormat.JSON;
 
     public RequestBuilder currency(Currency currency) {
-        this.currency = currency;
+        if(currency != null){
+            this.currency = currency;
+        }
         return this;
     }
 
     public RequestBuilder date(LocalDate date) {
-        this.date = date;
+        if(date != null){
+            this.date = date;
+        }
         return this;
     }
 
     public RequestBuilder dataFormat(DataFormat dataFormat) {
-        this.dataFormat = dataFormat;
+        if(dataFormat != null){
+            this.dataFormat = dataFormat;
+        }
         return this;
     }
 

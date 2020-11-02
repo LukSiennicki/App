@@ -1,27 +1,22 @@
 package pl.siennicki;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalDate;
-
-public class JsonDataConverter implements DataConverter {
-
-    private final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer())
-            .create();
+public class XMLDataConverter implements DataConverter{
+    ObjectMapper xmlMapper = new XmlMapper();
 
     @Override
-    public CurrencyInfo convertData(String data) {
-        ExchangeRate exchangeRate = gson.fromJson(data, ExchangeRate.class);
+    public CurrencyInfo convertData(String data) throws JsonProcessingException {
+        ExchangeRate exchangeRate = xmlMapper.readValue(data, ExchangeRate.class);
         return createCurrencyInfo(exchangeRate);
-
     }
 
     @Override
     public DataFormat getType() {
-        return DataFormat.JSON;
+        return DataFormat.XML;
     }
 
     @NotNull

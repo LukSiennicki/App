@@ -6,10 +6,24 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
-public enum Client {
-    INSTANCE;
-
+public class Client {
+    private static Client client;
     private final OkHttpClient okHttpClient = new OkHttpClient();
+
+    private Client(){
+
+    }
+
+    public static Client getINSTANCE() {
+        if(client == null){
+            synchronized (Client.class){
+                if(client == null){
+                    client = new Client();
+                }
+            }
+        }
+        return client;
+    }
 
     public String executeRequest(Currency currency, DataFormat dataFormat) throws IOException {
         Request newRequest = new RequestBuilder()
