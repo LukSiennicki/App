@@ -12,7 +12,6 @@ public class CurrencyApi {
     }
 
     public CurrencyInfo getInfoForCurrency(Currency currency) throws IOException {
-        System.out.println("client" + client.hashCode());
         String dataString = client.executeRequest(currency,dataConverter.getType());
 
         return dataConverter.convertData(dataString);
